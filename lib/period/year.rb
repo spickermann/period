@@ -13,5 +13,18 @@ module Period
     def self.current
       from_time(Period.current_time)
     end
+
+    def previous
+      self.class.new(:year => year - 1)
+    end
+    alias :prev :previous
+
+    def next
+      self.class.new(:year => year + 1)
+    end
+
+    def ==(other)
+      other.instance_of?(self.class) && year == other.year
+    end
   end
 end

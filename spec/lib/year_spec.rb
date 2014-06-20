@@ -50,4 +50,30 @@ describe Period::Year do
       expect(Period::Year).to have_received(:from_time).with(time)
     end
   end
+
+  describe '#previous' do
+    subject(:period) { Period::Year.new(:year => 2000).previous }
+
+    it 'returns the previous `Period::Year`' do
+      expect(period).to be_a Period::Year
+      expect(period.year).to eq 1999
+    end
+  end
+
+  describe '#previous' do
+    subject(:period) { Period::Year.new(:year => 2000) }
+
+    it 'is a alias for #previous' do
+      expect(period.prev).to eq period.previous
+    end
+  end
+
+  describe '#next' do
+    subject(:period) { Period::Year.new(:year => 2000).next }
+
+    it 'returns the next `Period::Year`' do
+      expect(period).to be_a Period::Year
+      expect(period.year).to eq 2001
+    end
+  end
 end
