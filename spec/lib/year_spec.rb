@@ -89,6 +89,14 @@ describe Period::Year do
     let(:period) { Period::Year.new(:year => 2004) }
     subject(:comparasion) { period == other }
 
+    context 'when other covers the same period' do
+      let(:other) { Period::Year.new(:year => 2004) }
+
+      it 'returns true' do
+        expect(comparasion).to be true
+      end
+    end
+
     context 'when other is not a `Period::Year`' do
       let(:other) { Time.local('2004-12-12') }
 
@@ -104,13 +112,44 @@ describe Period::Year do
         expect(comparasion).to be false
       end
     end
+  end
 
-    context 'when other covers the same period' do
-      let(:other) { Period::Year.new(:year => 2004) }
+  describe '#covers?' do
+    let(:period) { Period::Year.new(:year => 2010) }
+    subject(:cover) { period.cover?(date) }
 
-      it 'returns false' do
-        expect(comparasion).to be true
+    context 'when date is covered by the range' do
+      let(:date) { Time.local('2010-06-09') }
+
+      it 'returns true' do
+        expect(cover).to be true
       end
+    end
+
+    context 'when date is not covered by the range' do
+      let(:date) { Time.local('2011-06-09') }
+
+      it 'returns true' do
+        expect(cover).to be false
+      end
+    end
+  end
+
+  describe '#to_r' do
+    let(:period) { Period::Year.new(:year => 2014) }
+    subject(:range) { period.to_r }
+
+    it 'returns a range representation' do
+      expect(range).to eq Time.local('2014').all_year
+    end
+  end
+
+  describe '#to_s' do
+    let(:period) { Period::Year.new(:year => 2014) }
+    subject(:string) { period.to_s }
+
+    it 'returns a string representation' do
+      expect(string).to eq '2014'
     end
   end
 end

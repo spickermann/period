@@ -32,5 +32,17 @@ module Period
     def ==(other)
       other.instance_of?(self.class) && year == other.year
     end
+
+    def cover?(time)
+      to_r.cover?(time)
+    end
+
+    def to_r
+      start..finish
+    end
+
+    def to_s
+      "#{year}"
+    end
   end
 end
