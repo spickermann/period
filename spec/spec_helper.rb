@@ -2,8 +2,8 @@ require 'period'
 
 RSpec.configure do |config|
 
-  # Print the 10 slowest examples at the end of the spec run.
-  config.profile_examples = 4
+  # Print the 4 slowest examples at the end of the spec run.
+  # config.profile_examples = 4
 
   # Run specs in random order to surface order dependencies.
   config.order = :random
