@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe Period::Year do
+  let(:period) { Period::Year.new(:year => 2014) }
+
   describe '.new' do
     context 'with valid args' do
-      let(:year) { 2014 }
-      subject(:period) { Period::Year.new(:year => year) }
-
       it 'returns a `Period::Year`' do
         expect(period).to be_a Period::Year
       end
@@ -60,37 +59,36 @@ describe Period::Year do
   end
 
   describe '#previous' do
-    subject(:period) { Period::Year.new(:year => 2000).previous }
+    subject(:previous_period) { period.previous }
 
     it 'returns the previous `Period::Year`' do
-      expect(period).to be_a Period::Year
-      expect(period.year).to eq 1999
+      expect(previous_period).to be_a Period::Year
+      expect(previous_period.year).to eq 2013
     end
   end
 
-  describe '#previous' do
-    subject(:period) { Period::Year.new(:year => 2000) }
+  describe '#prev' do
+    subject(:prev_period) { period.prev }
 
     it 'is a alias for #previous' do
-      expect(period.prev).to eq period.previous
+      expect(prev_period).to eq period.previous
     end
   end
 
   describe '#next' do
-    subject(:period) { Period::Year.new(:year => 2000).next }
+    subject(:next_period) { period.next }
 
     it 'returns the next `Period::Year`' do
-      expect(period).to be_a Period::Year
-      expect(period.year).to eq 2001
+      expect(next_period).to be_a Period::Year
+      expect(next_period.year).to eq 2015
     end
   end
 
   describe '#==' do
-    let(:period) { Period::Year.new(:year => 2004) }
     subject(:comparasion) { period == other }
 
     context 'when other covers the same period' do
-      let(:other) { Period::Year.new(:year => 2004) }
+      let(:other) { Period::Year.new(:year => 2014) }
 
       it 'returns true' do
         expect(comparasion).to be true
@@ -98,7 +96,7 @@ describe Period::Year do
     end
 
     context 'when other is not a `Period::Year`' do
-      let(:other) { Time.local('2004-12-12') }
+      let(:other) { Time.local('2014-12-12') }
 
       it 'returns false' do
         expect(comparasion).to be false
@@ -106,7 +104,7 @@ describe Period::Year do
     end
 
     context 'when other covers not the same period' do
-      let(:other) { Period::Year.new(:year => 2003) }
+      let(:other) { Period::Year.new(:year => 1999) }
 
       it 'returns false' do
         expect(comparasion).to be false
@@ -114,12 +112,11 @@ describe Period::Year do
     end
   end
 
-  describe '#covers?' do
-    let(:period) { Period::Year.new(:year => 2010) }
+  describe '#cover?' do
     subject(:cover) { period.cover?(date) }
 
     context 'when date is covered by the range' do
-      let(:date) { Time.local('2010-06-09') }
+      let(:date) { Time.local('2014-06-09') }
 
       it 'returns true' do
         expect(cover).to be true
@@ -136,7 +133,6 @@ describe Period::Year do
   end
 
   describe '#to_r' do
-    let(:period) { Period::Year.new(:year => 2014) }
     subject(:range) { period.to_r }
 
     it 'returns a range representation' do
@@ -145,7 +141,6 @@ describe Period::Year do
   end
 
   describe '#to_s' do
-    let(:period) { Period::Year.new(:year => 2014) }
     subject(:string) { period.to_s }
 
     it 'returns a string representation' do
