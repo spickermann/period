@@ -12,14 +12,13 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/spickermann/period'
 
   spec.name          = 'period'
-  spec.version       = Period::VERSION
+  spec.version       = Period::VERSION::STRING
   spec.summary       = %q{Gem that helps defining period of time.}
   # spec.description   = %q{TODO: Write a longer description. Optional.}
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split('\x0')
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.files        = Dir['CHANGELOG', 'LICENSE', 'README', 'lib/**/*', 'spec/**/*']
+
   spec.require_paths = ['lib']
 
   spec.add_dependency 'activesupport', '>= 3.0.0'
