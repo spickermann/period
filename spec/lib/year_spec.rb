@@ -10,8 +10,16 @@ describe Period::Year do
         expect(period).to be_a Period::Year
       end
 
-      it 'is in the defined year' do
+      it 'covers the defined year' do
         expect(period.year).to eq 2014
+      end
+
+      it 'starts at `2014-01-01 00:00:00`' do
+        expect(period.start.to_s(:db)).to eq '2014-01-01 00:00:00'
+      end
+
+      it 'ends at `2014-12-31 23:59:59`' do
+        expect(period.finish.to_s(:db)).to eq '2014-12-31 23:59:59'
       end
     end
 
@@ -74,6 +82,35 @@ describe Period::Year do
     it 'returns the next `Period::Year`' do
       expect(period).to be_a Period::Year
       expect(period.year).to eq 2001
+    end
+  end
+
+  describe '#==' do
+    let(:period) { Period::Year.new(:year => 2004) }
+    subject(:comparasion) { period == other }
+
+    context 'when other is not a `Period::Year`' do
+      let(:other) { Time.local('2004-12-12') }
+
+      it 'returns false' do
+        expect(comparasion).to be false
+      end
+    end
+
+    context 'when other covers not the same period' do
+      let(:other) { Period::Year.new(:year => 2003) }
+
+      it 'returns false' do
+        expect(comparasion).to be false
+      end
+    end
+
+    context 'when other covers the same period' do
+      let(:other) { Period::Year.new(:year => 2004) }
+
+      it 'returns false' do
+        expect(comparasion).to be true
+      end
     end
   end
 end

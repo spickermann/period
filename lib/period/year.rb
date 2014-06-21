@@ -1,9 +1,15 @@
 module Period
   class Year
+    attr_reader :start, :finish
     attr_reader :year
 
     def initialize(args = {})
       @year = args.fetch(:year)
+
+      time = Time.new(year)
+
+      @start  = time.beginning_of_year
+      @finish = time.end_of_year
     end
 
     def self.from_time(time)
