@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
 
   spec.name          = 'period'
   spec.version       = Period::VERSION::STRING
-  spec.summary       = %q{Gem that helps defining period of time.}
+  spec.summary       = %q{Gem that helps defining periods of time.}
   # spec.description   = %q{TODO: Write a longer description. Optional.}
   spec.license       = 'MIT'
 
