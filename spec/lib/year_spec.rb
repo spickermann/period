@@ -62,8 +62,7 @@ describe Period::Year do
     subject(:previous_period) { period.previous }
 
     it 'returns the previous `Period::Year`' do
-      expect(previous_period).to be_a Period::Year
-      expect(previous_period.year).to eq 2013
+      expect(previous_period).to eq Period::Year.new(:year => 2013)
     end
   end
 
@@ -79,8 +78,7 @@ describe Period::Year do
     subject(:next_period) { period.next }
 
     it 'returns the next `Period::Year`' do
-      expect(next_period).to be_a Period::Year
-      expect(next_period.year).to eq 2015
+      expect(next_period).to eq Period::Year.new(:year => 2015)
     end
   end
 
