@@ -6,13 +6,15 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'period/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'period'
-  spec.version       = Period::VERSION
+
   spec.authors       = ['Martin Spickermann']
   spec.email         = ['spickermann@gmail.com']
+  spec.homepage      = 'https://github.com/spickermann/period'
+
+  spec.name          = 'period'
+  spec.version       = Period::VERSION
   spec.summary       = %q{Gem that helps defining period of time.}
   # spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = 'https://github.com/spickermann/period'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split('\x0')
@@ -22,7 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activesupport', '>= 3.0.0'
 
-  spec.add_development_dependency 'bundler', '~> 1.6'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'coveralls'
