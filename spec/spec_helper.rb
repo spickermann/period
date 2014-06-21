@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require 'period'
 
 RSpec.configure do |config|
