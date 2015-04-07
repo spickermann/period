@@ -6,7 +6,7 @@ require 'period/year'
 module Period
 
   def self.current_time
-    Time.zone.now
+    Time.current
   end
 
 end
