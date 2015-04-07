@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Period::Year do
+RSpec.describe Period::Year do
   describe '.current_time' do
     let(:time) { Time.parse('1989-02-12 15:10:00') }
 
@@ -9,7 +9,7 @@ describe Period::Year do
     end
 
     it 'returns the current time' do
-      expect(Period.current_time).to eq (time)
+      expect(Period.current_time).to eq time
     end
   end
 end

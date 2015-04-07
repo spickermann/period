@@ -1,9 +1,9 @@
-module Period
-  class Year
+module Period #:nodoc:
+  class Year #:nodoc:
     attr_reader :start, :finish
     attr_reader :year
 
-    def initialize(year: Time.current.year)
+    def initialize(year: Period.current_time.year)
       @year = year
 
       time = Time.local(year)
@@ -12,7 +12,7 @@ module Period
       @finish = time.end_of_year
     end
 
-    def self.from(time: Time.current, string: nil)
+    def self.from(time: Period.current_time, string: nil)
       if string
         new(year: string.to_i)
       else
@@ -23,7 +23,7 @@ module Period
     def previous
       self.class.new(year: year - 1)
     end
-    alias :prev :previous
+    alias_method :prev, :previous
 
     def next
       self.class.new(year: year + 1)

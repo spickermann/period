@@ -1,11 +1,10 @@
 require 'spec_helper'
 
-describe Period::Year do
-
+RSpec.describe Period::Year do
   describe '.new' do
     context 'with args' do
       let(:start)  { Time.local(2014, 01, 01) }
-      let(:finish) { Time.local(2014, 12, 31, 23, 59, 59, Rational(999999999, 1000)) }
+      let(:finish) { Time.local(2014, 12, 31, 23, 59, 59, Rational(999_999_999, 1000)) }
 
       subject(:period) { Period::Year.new(year: 2014) }
 
@@ -17,7 +16,7 @@ describe Period::Year do
     context 'without args' do
       subject(:period) { Period::Year.new }
 
-      its(:year) { is_expected.to eq Time.current.year }
+      its(:year) { is_expected.to eq Period.current_time.year }
     end
   end
 
@@ -25,7 +24,7 @@ describe Period::Year do
     context 'without args' do
       subject(:period) { Period::Year.from }
 
-      its(:year) { is_expected.to eq Time.current.year }
+      its(:year) { is_expected.to eq Period.current_time.year }
     end
 
     context 'with a time arg' do
@@ -45,7 +44,7 @@ describe Period::Year do
     subject(:period) { Period::Year.new(year: 2000) }
 
     it 'returns the previous `Period::Year`' do
-      expect(period.previous).to eq Period::Year.new(:year => 1999)
+      expect(period.previous).to eq Period::Year.new(year: 1999)
     end
   end
 
@@ -61,7 +60,7 @@ describe Period::Year do
     subject(:period) { Period::Year.new(year: 1971) }
 
     it 'returns the next `Period::Year`' do
-      expect(period.next).to eq Period::Year.new(:year => 1972)
+      expect(period.next).to eq Period::Year.new(year: 1972)
     end
   end
 
@@ -71,7 +70,7 @@ describe Period::Year do
     subject(:comparasion) { period == other }
 
     context 'when other covers the same period' do
-      let(:other) { Period::Year.new(:year => 2015) }
+      let(:other) { Period::Year.new(year: 2015) }
 
       it { is_expected.to be true }
     end
@@ -83,7 +82,7 @@ describe Period::Year do
     end
 
     context 'when other covers not the same period' do
-      let(:other) { Period::Year.new(:year => 1999) }
+      let(:other) { Period::Year.new(year: 1999) }
 
       it { is_expected.to be false }
     end
