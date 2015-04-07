@@ -3,30 +3,30 @@ module Period
     attr_reader :start, :finish
     attr_reader :year
 
-    def initialize(args = {})
-      @year = args.fetch(:year)
+    def initialize(year: Time.current.year)
+      @year = year
 
-      time = Time.new(year)
+      time = Time.local(year)
 
       @start  = time.beginning_of_year
       @finish = time.end_of_year
     end
 
-    def self.from_time(time)
-      new(:year => time.year)
-    end
-
-    def self.current
-      from_time(Period.current_time)
+    def self.from(time: Time.current, string: nil)
+      if string
+        new(year: string.to_i)
+      else
+        new(year: time.year)
+      end
     end
 
     def previous
-      self.class.new(:year => year - 1)
+      self.class.new(year: year - 1)
     end
     alias :prev :previous
 
     def next
-      self.class.new(:year => year + 1)
+      self.class.new(year: year + 1)
     end
 
     def ==(other)
@@ -38,7 +38,7 @@ module Period
     end
 
     def to_r
-      start..finish
+      (start..finish)
     end
 
     def to_s

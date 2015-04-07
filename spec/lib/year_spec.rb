@@ -1,148 +1,119 @@
 require 'spec_helper'
 
 describe Period::Year do
-  let(:period) { Period::Year.new(:year => 2014) }
 
   describe '.new' do
-    context 'with valid args' do
-      it 'returns a `Period::Year`' do
-        expect(period).to be_a Period::Year
-      end
+    context 'with args' do
+      let(:start)  { Time.local(2014, 01, 01) }
+      let(:finish) { Time.local(2014, 12, 31, 23, 59, 59, Rational(999999999, 1000)) }
 
-      it 'covers the defined year' do
-        expect(period.year).to eq 2014
-      end
+      subject(:period) { Period::Year.new(year: 2014) }
 
-      it 'starts at `2014-01-01 00:00:00`' do
-        expect(period.start.to_s(:db)).to eq '2014-01-01 00:00:00'
-      end
-
-      it 'ends at `2014-12-31 23:59:59`' do
-        expect(period.finish.to_s(:db)).to eq '2014-12-31 23:59:59'
-      end
+      its(:year) { is_expected.to eq 2014 }
+      its(:start) { is_expected.to eq start }
+      its(:finish) { is_expected.to eq finish }
     end
 
-    context 'with missing args' do
+    context 'without args' do
       subject(:period) { Period::Year.new }
 
-      it 'raises KeyError' do
-        expect{ period }.to raise_error(KeyError)
-      end
+      its(:year) { is_expected.to eq Time.current.year }
     end
   end
 
-  describe '.from_time' do
-    let(:time) { Time.local('1999-08-31 23:03:12') }
+  describe '.from' do
+    context 'without args' do
+      subject(:period) { Period::Year.from }
 
-    before do
-      allow(Period::Year).to receive(:new)
+      its(:year) { is_expected.to eq Time.current.year }
     end
 
-    it 'initializes a Period::Year with the given year' do
-      Period::Year.from_time(time)
-      expect(Period::Year).to have_received(:new).with(:year => 1999)
-    end
-  end
+    context 'with a time arg' do
+      subject(:period) { Period::Year.from(time: Time.local(2009)) }
 
-  describe '.current' do
-    let(:time) { Time.local('2016-04-01 15:45:55') }
-
-    before do
-      allow(Period).to receive(:current_time).and_return(time)
-      allow(Period::Year).to receive(:from_time)
+      its(:year) { is_expected.to eq 2009 }
     end
 
-    it 'initializes a Period::Year with the current year' do
-      Period::Year.current
-      expect(Period::Year).to have_received(:from_time).with(time)
+    context 'with a string arg' do
+      subject(:period) { Period::Year.from(string: '2013') }
+
+      its(:year) { is_expected.to eq 2013 }
     end
   end
 
   describe '#previous' do
-    subject(:previous_period) { period.previous }
+    subject(:period) { Period::Year.new(year: 2000) }
 
     it 'returns the previous `Period::Year`' do
-      expect(previous_period).to eq Period::Year.new(:year => 2013)
+      expect(period.previous).to eq Period::Year.new(:year => 1999)
     end
   end
 
   describe '#prev' do
-    subject(:prev_period) { period.prev }
+    subject(:period) { Period::Year.new(year: 1987) }
 
     it 'is a alias for #previous' do
-      expect(prev_period).to eq period.previous
+      expect(period.prev).to eq period.previous
     end
   end
 
   describe '#next' do
-    subject(:next_period) { period.next }
+    subject(:period) { Period::Year.new(year: 1971) }
 
     it 'returns the next `Period::Year`' do
-      expect(next_period).to eq Period::Year.new(:year => 2015)
+      expect(period.next).to eq Period::Year.new(:year => 1972)
     end
   end
 
   describe '#==' do
+    let(:period) { Period::Year.new(year: 2015) }
+
     subject(:comparasion) { period == other }
 
     context 'when other covers the same period' do
-      let(:other) { Period::Year.new(:year => 2014) }
+      let(:other) { Period::Year.new(:year => 2015) }
 
-      it 'returns true' do
-        expect(comparasion).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context 'when other is not a `Period::Year`' do
-      let(:other) { Time.local('2014-12-12') }
+      let(:other) { Time.local('2015-12-12') }
 
-      it 'returns false' do
-        expect(comparasion).to be false
-      end
+      it { is_expected.to be false }
     end
 
     context 'when other covers not the same period' do
       let(:other) { Period::Year.new(:year => 1999) }
 
-      it 'returns false' do
-        expect(comparasion).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 
   describe '#cover?' do
-    subject(:cover) { period.cover?(date) }
+    subject(:cover) { Period::Year.new(year: 2014).cover?(date) }
 
     context 'when date is covered by the range' do
       let(:date) { Time.local('2014-06-09') }
 
-      it 'returns true' do
-        expect(cover).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context 'when date is not covered by the range' do
       let(:date) { Time.local('2011-06-09') }
 
-      it 'returns true' do
-        expect(cover).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 
   describe '#to_r' do
-    subject(:range) { period.to_r }
+    subject(:period) { Period::Year.new(year: 2014) }
 
-    it 'returns a range representation' do
-      expect(range).to eq Time.local('2014').all_year
-    end
+    its(:to_r) { is_expected.to eq Time.local('2014').all_year }
   end
 
   describe '#to_s' do
-    subject(:string) { period.to_s }
+    subject(:period) { Period::Year.new(year: 2014) }
 
-    it 'returns a string representation' do
-      expect(string).to eq '2014'
-    end
+    its(:to_s) { is_expected.to eq '2014' }
   end
 end

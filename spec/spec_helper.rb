@@ -1,4 +1,6 @@
 require 'coveralls'
+require 'rspec/its'
+
 Coveralls.wear!
 
 require 'period'
