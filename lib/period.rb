@@ -1,11 +1,12 @@
 require 'active_support/all'
 
 require 'period/version'
-
 require 'period/year'
 
 module Period
+
   def self.current_time
-    Time.now
+    Time.zone.now
   end
+
 end
