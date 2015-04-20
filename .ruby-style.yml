@@ -7,3 +7,6 @@ StringLiterals:
 
 Style/AccessModifierIndentation:
   EnforcedStyle: outdent
+
+Style/Documentation:
+  Enabled: false
