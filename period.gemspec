@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   # spec.description   = 'TODO: Write a longer description. Optional.'
   spec.license       = 'MIT'
 
-  spec.files        = Dir['CHANGELOG', 'LICENSE', 'README', 'lib/**/*', 'spec/**/*']
+  spec.files         = Dir['CHANGELOG', 'LICENSE', 'README', 'lib/**/*', 'spec/**/*']
 
   spec.require_paths = ['lib']
 
