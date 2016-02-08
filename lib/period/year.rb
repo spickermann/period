@@ -23,7 +23,7 @@ module Period #:nodoc:
     def previous
       self.class.new(year: year - 1)
     end
-    alias_method :prev, :previous
+    alias prev previous
 
     def next
       self.class.new(year: year + 1)
@@ -42,7 +42,7 @@ module Period #:nodoc:
     end
 
     def to_s
-      "#{year}"
+      year.to_s
     end
   end
 end

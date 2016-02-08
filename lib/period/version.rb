@@ -3,7 +3,7 @@ module Period #:nodoc:
     MAJOR = 0
     MINOR = 0
     BUILD = 1
-    PRE   = 'pre'
+    PRE   = 'pre'.freeze
 
     STRING = [MAJOR, MINOR, BUILD, PRE].compact.join('.')
   end
