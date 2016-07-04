@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Period::Year do
   describe '.new' do
     context 'with args' do
-      let(:start)  { Time.local(2014, 01, 01) }
+      let(:start)  { Time.local(2014, 1, 1) }
       let(:finish) { Time.local(2014, 12, 31, 23, 59, 59, Rational(999_999_999, 1000)) }
 
       subject(:period) { Period::Year.new(year: 2014) }
