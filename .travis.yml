@@ -1,15 +1,49 @@
 language: ruby
-rvm:
-  - 2.0.0
-  - 2.1.10
-  - 2.2.6
-  - 2.3.3
-  - 2.4.0
-gemfile:
-  - gemfiles/Gemfile.rails-3.2.ci
-  - gemfiles/Gemfile.rails-4.0.ci
-  - gemfiles/Gemfile.rails-4.1.ci
-  - gemfiles/Gemfile.rails-4.2.ci
+matrix:
+  include:
+  - rvm: 2.0.0
+    gemfile: gemfiles/Gemfile.rails-3.2.ci
+  - rvm: 2.0.0
+    gemfile: gemfiles/Gemfile.rails-4.0.ci
+  - rvm: 2.0.0
+    gemfile: gemfiles/Gemfile.rails-4.1.ci
+  - rvm: 2.0.0
+    gemfile: gemfiles/Gemfile.rails-4.2.ci
+
+  - rvm: 2.1.10
+    gemfile: gemfiles/Gemfile.rails-3.2.ci
+  - rvm: 2.1.10
+    gemfile: gemfiles/Gemfile.rails-4.0.ci
+  - rvm: 2.1.10
+    gemfile: gemfiles/Gemfile.rails-4.1.ci
+  - rvm: 2.1.10
+    gemfile: gemfiles/Gemfile.rails-4.2.ci
+
+  - rvm: 2.2.6
+    gemfile: gemfiles/Gemfile.rails-3.2.ci
+  - rvm: 2.2.6
+    gemfile: gemfiles/Gemfile.rails-4.0.ci
+  - rvm: 2.2.6
+    gemfile: gemfiles/Gemfile.rails-4.1.ci
+  - rvm: 2.2.6
+    gemfile: gemfiles/Gemfile.rails-4.2.ci
+  - rvm: 2.2.6
+    gemfile: gemfiles/Gemfile.rails-5.0.ci
+
+  - rvm: 2.3.3
+    gemfile: gemfiles/Gemfile.rails-3.2.ci
+  - rvm: 2.3.3
+    gemfile: gemfiles/Gemfile.rails-4.0.ci
+  - rvm: 2.3.3
+    gemfile: gemfiles/Gemfile.rails-4.1.ci
+  - rvm: 2.3.3
+    gemfile: gemfiles/Gemfile.rails-4.2.ci
+  - rvm: 2.3.3
+    gemfile: gemfiles/Gemfile.rails-5.0.ci
+
+  - rvm: 2.4.0
+    gemfile: gemfiles/Gemfile.rails-5.0.ci
+
 script:
   - bundle exec rspec
   - bundle exec rubocop
